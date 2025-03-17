@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Page You'll Visit to Center a DIV</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+</head>
+<body class="bg-light">
+<div class="container py-2">
+    <header class="text-center p-4 my-3 text-white bg-primary rounded shadow-sm mb-4">
+        <h1 class="p-0 m-0">The Last Page You'll Visit to Center a DIV</h1>
+        <p class="p-0 m-0">Created with ❤️ for all the developers who've Googled "how to center a div" at least once</p>
+    </header>
+
+    <section id="comparison-table" class="mb-4">
+        <h2 class="mb-3 text-center p-0 m-0">Methods</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Horizontal</th>
+                        <th>Vertical</th>
+                        <th>Browser Support</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#flexbox">Flexbox</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE11+, All modern browsers</td>
+                        <td>Multiple elements, responsive layouts</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#grid">Grid</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE11+ (partial), All modern browsers</td>
+                        <td>Complex layouts, 2D positioning</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#absolute-transform">Absolute + Transform</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE9+, All modern browsers</td>
+                        <td>Single elements, unknown dimensions</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#absolute-margin">Absolute + Margin Auto</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE8+, All modern browsers</td>
+                        <td>Single elements, known dimensions</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#table">Table Display</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE8+, All modern browsers</td>
+                        <td>Simple layouts, vertical alignment</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#line-height">Line Height</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>All browsers</td>
+                        <td>Single line text, icons</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#margin-auto">Margin Auto</a></td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>All browsers</td>
+                        <td>Block elements, horizontal centering</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#calc">Calc Function</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE9+, All modern browsers</td>
+                        <td>Precise positioning, known parent dimensions</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#viewport">Viewport Units</a></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>IE9+, All modern browsers</td>
+                        <td>Full viewport centering</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="generator" class="mb-4">
+        <h2 class="mb-3 text-center p-0 m-0">Generator</h2>
+        <div class="bg-white p-4 rounded shadow-sm">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="method-select" class="form-label">Method:</label>
+                        <select id="method-select" class="form-select">
+                            <option value="flexbox">Flexbox</option>
+                            <option value="grid">Grid</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="container-width" class="form-label">Container Width:</label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" id="container-width" class="form-range me-2" min="200" max="800" value="400">
+                            <span id="container-width-value" class="badge bg-secondary">400px</span>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="container-height" class="form-label">Container Height:</label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" id="container-height" class="form-range me-2" min="200" max="600" value="300">
+                            <span id="container-height-value" class="badge bg-secondary">300px</span>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="item-width" class="form-label">Item Width:</label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" id="item-width" class="form-range me-2" min="50" max="300" value="100">
+                            <span id="item-width-value" class="badge bg-secondary">100px</span>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="item-height" class="form-label">Item Height:</label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" id="item-height" class="form-range me-2" min="50" max="200" value="100">
+                            <span id="item-height-value" class="badge bg-secondary">100px</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="border border-2 border-primary rounded p-2 mb-3" style="min-height: 350px;">
+                        <div id="preview-parent" class="border border-dashed border-primary bg-light">
+                            <div id="preview-child" class="bg-primary text-white p-3 rounded text-center"></div>
+                        </div>
+                    </div>
+                    <div class="bg-light p-3 rounded">
+                        <pre class="mb-0"><code class="language-css" id="generated-code"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="flexbox" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Flexbox</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="flexbox-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="flexbox-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="flexbox-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="flexbox-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;     /* Vertical centering */
+  height: 300px;
+}
+
+/* That's it! The child will be centered */</code></pre>
+                    </div>
+                    <div class="tab-pane" id="flexbox-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="d-flex justify-content-center align-items-center" style="height: 300px;"&gt;
+  &lt;div&gt;Centered&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="flexbox-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="flex justify-center items-center h-[300px]"&gt;
+  &lt;div&gt;Centered&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="grid" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Grid</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="grid-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="grid-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="grid-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="grid-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  display: grid;
+  place-items: center; /* Shorthand for align-items and justify-items */
+  height: 300px;
+}
+
+/* That's it! The child will be centered */</code></pre>
+                    </div>
+                    <div class="tab-pane" id="grid-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="d-grid" style="height: 300px; place-items: center;"&gt;
+  &lt;div&gt;Centered&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="grid-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="grid place-items-center h-[300px]"&gt;
+  &lt;div&gt;Centered&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="absolute-transform" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Absolute + Transform</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="absolute-transform-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="absolute-transform-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="absolute-transform-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="absolute-transform-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  position: relative;
+  height: 300px;
+}
+
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="absolute-transform-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="position-relative" style="height: 300px;"&gt;
+  &lt;div class="position-absolute top-50 start-50 translate-middle"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="absolute-transform-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="relative h-[300px]"&gt;
+  &lt;div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="absolute-margin" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Absolute + Margin Auto</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="absolute-margin-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="absolute-margin-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="absolute-margin-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="absolute-margin-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  position: relative;
+  height: 300px;
+}
+
+.child {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 100px;
+  margin: auto;
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="absolute-margin-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="position-relative" style="height: 300px;"&gt;
+  &lt;div class="position-absolute" style="top: 0; right: 0; bottom: 0; left: 0; width: 200px; height: 100px; margin: auto;"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="absolute-margin-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="relative h-[300px]"&gt;
+  &lt;div class="absolute inset-0 w-[200px] h-[100px] m-auto"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="table" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Table Display</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="table-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="table-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="table-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="table-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  display: table;
+  width: 100%;
+  height: 300px;
+}
+
+.child {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="table-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="d-table w-100" style="height: 300px;"&gt;
+  &lt;div class="d-table-cell text-center align-middle"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="table-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="table w-full h-[300px]"&gt;
+  &lt;div class="table-cell text-center align-middle"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="line-height" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Line Height</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="line-height-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="line-height-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="line-height-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="line-height-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  height: 300px;
+  line-height: 300px;
+  text-align: center;
+}
+
+.child {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="line-height-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="text-center" style="height: 300px; line-height: 300px;"&gt;
+  &lt;div class="d-inline-block align-middle" style="line-height: normal;"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="line-height-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="h-[300px] leading-[300px] text-center"&gt;
+  &lt;div class="inline-block align-middle leading-normal"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="margin-auto" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Margin Auto</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="margin-auto-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="margin-auto-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="margin-auto-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="margin-auto-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  height: 300px;
+}
+
+.child {
+  width: 200px;
+  margin: 0 auto; /* Horizontal centering only */
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="margin-auto-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div style="height: 300px;"&gt;
+  &lt;div class="mx-auto" style="width: 200px;"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="margin-auto-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="h-[300px]"&gt;
+  &lt;div class="w-[200px] mx-auto"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="calc" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Calc Function</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="calc-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="calc-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="calc-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="calc-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  position: relative;
+  height: 300px;
+}
+
+.child {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  left: calc(50% - 100px); /* 50% - half of width */
+  top: calc(50% - 50px);   /* 50% - half of height */
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="calc-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="position-relative" style="height: 300px;"&gt;
+  &lt;div class="position-absolute" style="width: 200px; height: 100px; left: calc(50% - 100px); top: calc(50% - 50px);"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="calc-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="relative h-[300px]"&gt;
+  &lt;div class="absolute w-[200px] h-[100px] left-[calc(50%-100px)] top-[calc(50%-50px)]"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methods" class="mb-4">
+        <div id="viewport" class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h3 class="mb-0">Viewport Units</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-tab="viewport-css">CSS</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="viewport-bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-tab="viewport-tailwind">Tailwind</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content rounded-bottom rounded-end border-start border-bottom border-end overflow-hidden">
+                    <div class="tab-pane active" id="viewport-css">
+                        <pre class="m-0 rounded-0"><code class="language-css">.parent {
+  height: 300px;
+}
+
+.child {
+  width: 200px;
+  height: 100px;
+  margin-left: 50%;
+  margin-top: 50vh;
+  transform: translate(-50%, -50%);
+}</code></pre>
+                    </div>
+                    <div class="tab-pane" id="viewport-bootstrap">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div style="height: 300px;"&gt;
+  &lt;div style="width: 200px; height: 100px; margin-left: 50%; margin-top: 50vh; transform: translate(-50%, -50%);"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="tab-pane" id="viewport-tailwind">
+                        <pre class="m-0 rounded-0"><code class="language-html">&lt;div class="h-[300px]"&gt;
+  &lt;div class="w-[200px] h-[100px] ml-[50%] mt-[50vh] -translate-x-1/2 -translate-y-1/2"&gt;
+    Centered
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('[data-tab]');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabContainer = this.closest('.code-tabs');
+
+            tabContainer.querySelectorAll('.nav-link, .nav-item button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            this.classList.add('active');
+            
+            const tabToShow = this.getAttribute('data-tab');
+            
+            tabContainer.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active', 'show');
+            });
+            
+            document.getElementById(tabToShow).classList.add('active', 'show');
+        });
+    });
+    
+    const methodSelect = document.getElementById('method-select');
+    const containerWidth = document.getElementById('container-width');
+    const containerHeight = document.getElementById('container-height');
+    const itemWidth = document.getElementById('item-width');
+    const itemHeight = document.getElementById('item-height');
+    
+    const containerWidthValue = document.getElementById('container-width-value');
+    const containerHeightValue = document.getElementById('container-height-value');
+    const itemWidthValue = document.getElementById('item-width-value');
+    const itemHeightValue = document.getElementById('item-height-value');
+    
+    const previewParent = document.getElementById('preview-parent');
+    const previewChild = document.getElementById('preview-child');
+    const generatedCode = document.getElementById('generated-code');
+    
+    updatePreview();
+
+    [methodSelect, containerWidth, containerHeight, itemWidth, itemHeight].forEach(control => {
+        control.addEventListener('input', updatePreview);
+    });
+    
+    function updatePreview() {
+        containerWidthValue.textContent = `${containerWidth.value}px`;
+        containerHeightValue.textContent = `${containerHeight.value}px`;
+        itemWidthValue.textContent = `${itemWidth.value}px`;
+        itemHeightValue.textContent = `${itemHeight.value}px`;
+        
+        previewParent.style.width = `${containerWidth.value}px`;
+        previewParent.style.height = `${containerHeight.value}px`;
+
+        previewChild.style.width = `${itemWidth.value}px`;
+        previewChild.style.height = `${itemHeight.value}px`;
+        
+        const method = methodSelect.value;
+        
+        previewParent.style.display = '';
+        previewParent.style.position = '';
+        previewParent.style.justifyContent = '';
+        previewParent.style.alignItems = '';
+        previewParent.style.placeItems = '';
+        
+        previewChild.style.position = '';
+        previewChild.style.top = '';
+        previewChild.style.left = '';
+        previewChild.style.right = '';
+        previewChild.style.bottom = '';
+        previewChild.style.margin = '';
+        previewChild.style.transform = '';
+        
+        let cssCode = '';
+        
+        if (method === 'flexbox') {
+            previewParent.style.display = 'flex';
+            previewParent.style.justifyContent = 'center';
+            previewParent.style.alignItems = 'center';
+            
+            cssCode = `.parent {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;     /* Vertical centering */
+  width: ${containerWidth.value}px;
+  height: ${containerHeight.value}px;
+}
+
+.child {
+  width: ${itemWidth.value}px;
+  height: ${itemHeight.value}px;
+}`;
+        } else if (method === 'grid') {
+            previewParent.style.display = 'grid';
+            previewParent.style.placeItems = 'center';
+            
+            cssCode = `.parent {
+  display: grid;
+  place-items: center; /* Shorthand for align-items and justify-items */
+  width: ${containerWidth.value}px;
+  height: ${containerHeight.value}px;
+}
+
+.child {
+  width: ${itemWidth.value}px;
+  height: ${itemHeight.value}px;
+}`;
+        }
+        
+        generatedCode.textContent = cssCode;
+        
+        if (window.Prism) {
+            Prism.highlightElement(generatedCode);
+        }
+    }
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
